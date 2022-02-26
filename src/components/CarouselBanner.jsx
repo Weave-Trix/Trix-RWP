@@ -18,7 +18,7 @@ const Container = styled.div`
   height:80vh;
   display: flex;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 `;
 
 const Arrow = styled.div`
