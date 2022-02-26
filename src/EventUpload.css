@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +31,32 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.dropzone {
+  text-align: center;
+  padding: 30px;
+  border: 3px dashed #eeeeee;
+  background-color: #fafafa;
+  color: #bdbdbd;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.selected-file-wrapper {
+  text-align: center;
+}
+
+.selected-file {
+  color: #000; 
+  font-weight: bold;
+}
+
+.alignment{
+  padding-left: 10%;
+  padding-right: 10%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
