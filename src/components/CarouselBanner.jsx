@@ -13,7 +13,7 @@ import { selectUser } from "../redux/userRedux";
 import QRCode from "react-qr-code";
 import { BASE_URL } from "../http-common";
 
-// testing git
+// testing githubbb
 const Container = styled.div`
   width: 100%;
   height:80vh;
