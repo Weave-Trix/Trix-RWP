@@ -86,8 +86,8 @@ const StyledLink = styled(Link)`
 const Navbar = () => {
   // fetch data from slice
   const user = useSelector(selectUser);
-  const quantity = useSelector(state => state.ticketWallet.quantity);
-  console.log(quantity);
+  const ticketWalletQuantity = useSelector(state => state.ticketWallet.quantity);
+  const artistEventQuantity = useSelector(state => state.artistEvent.quantity);
   return (
     <Container>
       <Wrapper>
@@ -105,6 +105,9 @@ const Navbar = () => {
           <StyledLink to="/artist/publish-event">
             {user && ((user.isArtist) && <Message>Publish Event</Message>)}
           </StyledLink>
+          <StyledLink to="/artist/publish-event">
+            {user && ((user.isArtist) && <Message style={{marginLeft: "1.4rem"}}>Manage Events ({(artistEventQuantity==0)? 0 : artistEventQuantity})</Message>)}
+          </StyledLink>
         </Left>
         <Right>
           <MenuItem>
@@ -114,7 +117,7 @@ const Navbar = () => {
           </MenuItem>
           <StyledLink to="/my-tickets">
             <MenuItem style={{ marginRight: "20px" }}>
-              <Badge badgeContent={quantity} color="primary">
+              <Badge badgeContent={ticketWalletQuantity} color="primary">
                 <ConfirmationNumberOutlined />
               </Badge>
             </MenuItem>

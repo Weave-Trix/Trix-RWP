@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { logout } from "../redux/userRedux"
 import { clearTicketWallet } from '../redux/ticketWallet';
 import { clearArtistEvent } from '../redux/artistEvent';
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/userRedux";
 
 const MenuItem = styled.div`
   font-size: 14px;
@@ -17,6 +19,9 @@ const Container = styled.div`
 `
 
 const LogoutItem = () => {
+    //fetch data from slice
+    const user = useSelector(selectUser);
+    
     const dispatch = useDispatch();
     const handleLogout = (e) => {
         e.preventDefault();
@@ -29,7 +34,7 @@ const LogoutItem = () => {
     }
     return (
         <Container>
-            <MenuItem onClick={(e) => handleLogout(e)} style={{ marginLeft: "20px" }}>Logout</MenuItem>
+            <MenuItem onClick={(e) => handleLogout(e)} style={{ marginLeft: "0.8rem", marginRight: "0.2rem"}}>Logout <b>{user.username}</b></MenuItem>
         </Container>
     )
 }
