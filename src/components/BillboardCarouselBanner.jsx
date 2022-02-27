@@ -13,6 +13,11 @@ import { selectUser } from "../redux/userRedux";
 import QRCode from "react-qr-code";
 import { BASE_URL } from "../http-common";
 import { useLocation } from 'react-router-dom';
+import { onSnapshot } from 'firebase/firestore';
+import { query } from 'firebase/firestore';
+import { where } from 'firebase/firestore';
+import { firestoreDb } from '../firebase/fs_setup_cache';
+import { collection } from 'firebase/firestore';
 
 // testing githubbb
 const Container = styled.div`
@@ -153,20 +158,51 @@ const BillboardCarouselBanner = () => {
   const user = useSelector(selectUser);
   console.log("banner checking user status : " + user);
 
-  // API request
+  /*
+    // API request
+    const [events, setEvents] = useState([]);
+    useEffect(() => {
+      const getEvents = async () => {
+        try {
+          console.log("hihi i am ruka chan, here here");
+          console.log(name);
+          const res = await publicRequest.get("/events/billboard?name=" + name);
+          setEvents(res.data);
+          console.log(events);
+        } catch (err) { }
+      };
+      getEvents()
+    }, []);
+    */
+
+  // offline firestore
   const [events, setEvents] = useState([]);
-  useEffect(() => {
-    const getEvents = async () => {
-      try {
-        console.log("hihi i am ruka chan, here here");
-        console.log(name);
-        const res = await publicRequest.get("/events/billboard?name=" + name);
-        setEvents(res.data);
-        console.log(events);
-      } catch (err) { }
-    };
-    getEvents()
-  }, []);
+
+  console.log("read billboard: " + name)
+  const q = query(collection(firestoreDb, "events"), where("billboard", "array-contains", name))
+  console.log("q setup success")
+  onSnapshot(q, { includeMetaDataChanges: true }, (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "added") {
+        console.log("New event: ", change.doc.data());
+        let exist = false;
+        // before events initialized, let the loop run
+        if (events.length > 0) {
+          events.forEach((item) => {
+            // if document already exist, skip
+            if (change.doc.data().payment.id === item.payment.id) {
+              exist = true;
+            }
+          })
+        }
+        // if document doesnt exist, spread array and append new event
+        (exist === false) && setEvents([...events, change.doc.data()]);
+      }
+    })
+
+    const source = snapshot.metadata.fromCache ? "local cache" : "server";
+    console.log("Data came from " + source);
+  })
 
   // Banner
   const [slideIndex, setSlideIndex] = useState(0);
@@ -213,7 +249,7 @@ const BillboardCarouselBanner = () => {
         <ArrowLeftOutlined />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
-        {events.map((item) => (
+        {(events.length > 0) && events.map((item) => (
           <Slide bg={item.bg} key={item.id}>
             <ImgContainer>
               <EventImage src={item.coverPhoto} />
