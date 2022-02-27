@@ -7,16 +7,17 @@ import React from "react";
 import { publicRequest } from '../requestMethods';
 import PaymentButton from "./PaymentButton";
 import { Timestamp } from '@firebase/firestore';
-import LoginButton from '../components/LoginButton';
+import LoginButton from './LoginButton';
 import { useSelector } from 'react-redux';
 import { selectUser } from "../redux/userRedux";
 import QRCode from "react-qr-code";
 import { BASE_URL } from "../http-common";
+import { useLocation } from 'react-router-dom';
 
 // testing githubbb
 const Container = styled.div`
   width: 100%;
-  height:80vh;
+  height:100vh;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -59,7 +60,7 @@ const Slide = styled.div`
 
 const ImgContainer = styled.div`
   height: 100%;
-  flex: 3;
+  flex: 3.3;
 `;
 
 const Image = styled.img`
@@ -72,7 +73,7 @@ const InfoContainer = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: whitesmoke;
 `;
 
@@ -87,6 +88,7 @@ const Desc = styled.p`
   font-size: 1.2rem;
   font-weight: 500;
   letter-spacing: 3px;
+  text-overflow: clip;
 `;
 
 /*
@@ -102,20 +104,16 @@ const Button = styled.button`
 
 const Top = styled.div`
   align-items: left;
-  flex: 0.7;
-  display: flex;
   flex-direction: column;
+  padding-left: 2rem;
 `
 
 const Center = styled.div`
-  flex: 0.7;
-  display: flex;
+  padding-left: 2rem;
+  padding-right: 2rem;
 `
 
 const Bottom = styled.div`
-  flex: 1;
-  display: flex;
-  padding-bottom: 3rem;
   flex-direction: column;
 `
 
@@ -148,7 +146,9 @@ const Time = styled.h3`
 
 
 
-const CarouselBanner = () => {
+const BillboardCarouselBanner = () => {
+  const location = useLocation();
+  const name = location.pathname.split("/")[2];
   // get current user status
   const user = useSelector(selectUser);
   console.log("banner checking user status : " + user);
@@ -159,7 +159,8 @@ const CarouselBanner = () => {
     const getEvents = async () => {
       try {
         console.log("hihi i am ruka chan, here here");
-        const res = await publicRequest.get("/events");
+        console.log(name);
+        const res = await publicRequest.get("/events/billboard?name=" + name);
         setEvents(res.data);
         console.log(events);
       } catch (err) { }
@@ -218,24 +219,24 @@ const CarouselBanner = () => {
               <EventImage src={item.coverPhoto} />
             </ImgContainer>
             <InfoContainer>
-                <Top>
-                  <Title>{item.title}</Title>
-                  <Time style={{ fontSize: "1.5rem" }}>{getTimestamp(item.startTime).toDateString()}</Time>
-                  <Time>{getTimestamp(item.startTime).toLocaleTimeString('en-SG')}</Time>
-                  <Time style={{ fontSize: "1.2rem", marginTop: "0.8rem", fontWeight: "bolder" }}>{item.location}</Time>
-                </Top>
-                <Center>
-                  <Desc>{item.description}</Desc>
-                </Center>
-                <Bottom>
-                  <QRContainer>
-                    <QRCode value={BASE_URL + "events/" + item.id} size={155} />
-                  </QRContainer>
-                  <LogoContainer>
-                    <Logo>Trix</Logo>
-                    <Logo style={{ fontSize: "0.6rem" }}>RWP</Logo>
-                  </LogoContainer>
-                </Bottom>
+              <Top>
+                <Title>{item.title}</Title>
+                <Time style={{ fontSize: "1.5rem" }}>{getTimestamp(item.startTime).toDateString()}</Time>
+                <Time>{getTimestamp(item.startTime).toLocaleTimeString('en-SG')}</Time>
+                <Time style={{ fontSize: "1.2rem", marginTop: "0.8rem", fontWeight: "bolder" }}>{item.location}</Time>
+              </Top>
+              <Center>
+                <Desc>{item.description}</Desc>
+              </Center>
+              <Bottom>
+                <QRContainer>
+                  <QRCode value={BASE_URL + "events/" + item.id} size={155} />
+                </QRContainer>
+                <LogoContainer>
+                  <Logo>Trix</Logo>
+                  <Logo style={{ fontSize: "0.6rem" }}>RWP</Logo>
+                </LogoContainer>
+              </Bottom>
             </InfoContainer>
           </Slide>
         ))}
@@ -247,4 +248,4 @@ const CarouselBanner = () => {
   );
 };
 
-export default CarouselBanner;
+export default BillboardCarouselBanner;

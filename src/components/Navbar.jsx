@@ -102,7 +102,7 @@ const Navbar = () => {
             <Input placeholder="Search" />
             <Search style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
-          <StyledLink to="/publish-event">
+          <StyledLink to="/artist/publish-event">
             {user && ((user.isArtist) && <Message>Publish Event</Message>)}
           </StyledLink>
         </Left>

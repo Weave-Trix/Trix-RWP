@@ -17,6 +17,7 @@ import { BrowserRouter as Router,
 } from 'react-router-dom';
 import { selectUser } from './redux/userRedux';
 import EventUpload from './pages/EventUpload';
+import Billboard from  './pages/Billboard';
 
 const theme = createTheme({
   palette: {
@@ -54,8 +55,11 @@ const App = () => {
             <Route path="/register">
               {user ? <Redirect to="/" /> : <Register />}
             </Route>
-            <Route path="/publish-event">
+            <Route path="/artist/publish-event">
               <EventUpload />
+            </Route>
+            <Route path="/billboard/:name">
+              <Billboard />
             </Route>
           </Switch>
         </Router>
