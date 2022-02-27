@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { fontSize } from '@mui/system';
 import { style } from '@mui/system';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { publicRequest } from '../requestMethods';
+import { login } from "../redux/apiCalls";
 
 const Container = styled.div`
   width: 100vw;
@@ -53,13 +57,12 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  width: 20%;
   border: none;
   padding: 15px 20px;
   background-color: pink;
   color: white;
-  cursor: pointer;
   margin: 1rem;
+  cursor: hand;
   border-radius: 1rem;
   overflow: hidden;
   text-align: center;
@@ -73,30 +76,52 @@ const Agreement = styled.span`
 `;
 
 const Register = () => {
-    return (
-        <Container>
-            <Wrapper>
-                <LogoContainer>
-                    <Logo>Trix</Logo>
-                    <Logo style={{ fontSize: "2rem" }}>RWP</Logo>
-                </LogoContainer>
-                <Title>REGISTER</Title>
-                <Form>
-                    <Input placeholder="name" />
-                    <Input placeholder="last name" />
-                    <Input placeholder="username" />
-                    <Input placeholder="email" />
-                    <Input placeholder="password" />
-                    <Input placeholder="confirm password" />
-                    <Agreement>
-                        By creating an account, I consent to the processing of my personal
-                        data in accordance with the <b>PRIVACY POLICY</b>
-                    </Agreement>
-                    <Button>CREATE ACCOUNT</Button>
-                </Form>
-            </Wrapper>
-        </Container>
-    );
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [isValid, setIsValid] = useState(false)
+  const [hasUsername, setHasUsername] = useState(false)
+
+  useEffect(() => {
+    setIsValid(false);
+    ((password == confirmPassword) && (password !== "")) && setIsValid(true)
+  }, [password, confirmPassword])
+  
+  useEffect(() => {
+    setHasUsername(false);
+    (username !== "") && setHasUsername(true);
+  }, [username])
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    await publicRequest.post("/auth/register", {username, password});
+    login(dispatch, {username, password})
+  }
+
+  return (
+    <Container>
+      <Wrapper>
+        <LogoContainer>
+          <Logo>Trix</Logo>
+          <Logo style={{ fontSize: "2rem" }}>RWP</Logo>
+        </LogoContainer>
+        <Title>REGISTER</Title>
+        <Form>
+          <Input placeholder="username" onChange={(e) => setUsername(e.target.value)} />
+          <Input placeholder="password" type="password" onChange={(e) => setPassword(e.target.value)} />
+          <Input placeholder="confirm password" type="password" onChange={(e) => setConfirmPassword(e.target.value)} />
+          <Agreement>
+            By creating an account, I consent to the processing of my personal
+            data in accordance with the <b>PRIVACY POLICY</b>
+          </Agreement>
+          {(!hasUsername) && <b style={{color: "red"}}>You must provide a username</b>}
+          {(isValid && hasUsername) && <Button style={{ position: "relative", zIndex: "5", cursor: "hand", pointerEvents: "auto"}} onClick={handleClick}>CREATE ACCOUNT</Button>}
+          {(!isValid) && <Button style={{ cursor: "none", backgroundColor: "#ababab" }}>Reconfirm password</Button>}
+        </Form>
+      </Wrapper>
+    </Container>
+  );
 };
 
 export default Register;

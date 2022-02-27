@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { login } from '../redux/apiCalls';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -72,9 +73,9 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.a`
+const StyledLink = styled(Link)`
   margin: 5px 0px;
-  font-size: 12px;
+  font-size: 1.2rem;
   text-decoration: underline;
   cursor: pointer;
   
@@ -116,7 +117,7 @@ const Login = () => {
           />
           <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
           {error && <Error>Wrong login info!</Error>}
-          <Link>create account</Link>
+          <StyledLink to="/register">create account</StyledLink>
         </Form>
       </Wrapper>
     </Container>

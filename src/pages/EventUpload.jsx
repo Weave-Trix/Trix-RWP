@@ -107,16 +107,16 @@ const InfoContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 3rem;
+  font-size: 1.3rem;
   justify-content: flex-start;
   margin-bottom: 0.7rem;
 `;
 
 const Desc = styled.p`
   margin: 50px 0px;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   font-weight: 500;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   height: 100%;
   width: 100%;
   word-wrap: break-word;
@@ -160,7 +160,7 @@ const EventImage = styled.img`
   object-fit: cover;
 `
 
-const Time = styled.h3`
+const Time = styled.h6`
   margin-top: 0.5rem;
   word-wrap: break-word;
 `
@@ -182,10 +182,24 @@ const StyledButton = styled(Button)`
 `
 
 const EventUpload = () => {
-    // Payment and Upload Event
-
     // fetch current user from redux store
     const currentUser = useSelector((state) => state.user.currentUser);
+
+    const [form, setForm] = useState({
+        title: "",
+        description: "",
+        coverPhoto: "https://alxgroup.com.au/wp-content/uploads/2016/04/dummy-post-horisontal.jpg",
+        location: "",
+        artistId: currentUser.userId,
+        artist: "",
+        startTime: "",
+        endTime: "",
+        price: 1.00,
+        ticketQuantity: 50,
+        billboard: [],
+        soldTicketList: []
+    })
+    // Payment and Upload Event
 
     // Stripe
     const KEY = "pk_test_51KVK8VLgmHChReqD4pRxgriLf0qbb6KfJWZ5zuut1w9i9TocIitIhaACRfyYSiNx21OfsxOBh46aFjI5NzOcOZsc00EETUx8bS"
@@ -201,7 +215,8 @@ const EventUpload = () => {
     const addToArtistEvent = async (paymentDetails) => {
         console.log("checking userId before dispatch : " + currentUser.userId)
         console.log("running addToTicketList() at PaymentButton.jsx");
-        console.log("payment details checking here " + paymentDetails);
+        console.log("FORM checking here " + form);
+        console.log("addEvent apicall")
         await addEvent(dispatch, { ...form, payment: paymentDetails });
     }
 
@@ -227,21 +242,6 @@ const EventUpload = () => {
         stripeToken && makeRequest();
     }, [stripeToken, history])
 
-
-
-    const [form, setForm] = useState({
-        title: "",
-        description: "",
-        coverPhoto: "https://alxgroup.com.au/wp-content/uploads/2016/04/dummy-post-horisontal.jpg",
-        location: "",
-        artistId: currentUser.userId,
-        artist: "", 
-        startTime: "",
-        endTime: "",
-        price: 1.00,
-        ticketQuantity: 50,
-        billboard: []
-    })
 
     const [totalPrice, setTotalPrice] = useState(1000 * form.billboard.length.toFixed(2))
 
@@ -372,9 +372,9 @@ const EventUpload = () => {
                         <InfoContainer>
                             <Top>
                                 <Title>{form.title}</Title>
-                                <Time style={{ fontSize: "1.5rem" }}>{form.startTime.toString().slice(0, 15)}</Time>
-                                <Time>{form.startTime.toString().slice(15, 21)}</Time>
-                                <Time style={{ fontSize: "1.2rem", marginTop: "0.8rem", fontWeight: "bolder" }}>{form.location}</Time>
+                                <Time style={{ fontSize: "1rem" }}>{form.startTime.toString().slice(0, 15)}</Time>
+                                <Time style={{ fontSize: "0.9rem" }}>{form.startTime.toString().slice(15, 21)}</Time>
+                                <Time style={{ fontSize: "0.8rem", marginTop: "0.8rem", fontWeight: "bolder" }}>{form.location}</Time>
                             </Top>
                             <Center>
                                 <Desc>{form.description}</Desc>
