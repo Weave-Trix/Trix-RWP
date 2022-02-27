@@ -182,22 +182,50 @@ const BillboardCarouselBanner = () => {
   const q = query(collection(firestoreDb, "events"), where("billboard", "array-contains", name))
   console.log("q setup success")
   onSnapshot(q, { includeMetaDataChanges: true }, (snapshot) => {
+    // MONITOR UPDATES
     snapshot.docChanges().forEach((change) => {
       if (change.type === "added") {
         console.log("New event: ", change.doc.data());
         let exist = false;
+        // suspected this event from firestore not exist in local
+        let suspectRemovedEventPaymentId = change.doc.data().payment.id;
+        console.log(suspectRemovedEventPaymentId + "this id suspected...........")
         // before events initialized, let the loop run
         if (events.length > 0) {
+          // LIVE UPDATE
           events.forEach((item) => {
             // if document already exist, skip
             if (change.doc.data().payment.id === item.payment.id) {
               exist = true;
+              suspectRemovedEventPaymentId = "";
             }
           })
         }
-        // if document doesnt exist, spread array and append new event
+
+
+        // LIVE DELETE
+        // if document not exist in local but in firestore
         (exist === false) && setEvents([...events, change.doc.data()]);
+        // suspect still cant prove its existance
+        if (suspectRemovedEventPaymentId !== "") {
+          // loop again and dig that suspect out
+          if (events.length > 0) {
+            let counter = 0;
+            events.forEach((item) => {
+              // if not suspect increase count
+              if (change.doc.data().payment.id === item.payment.suspectRemovedEventPaymentId) {
+                // remove this event at this index
+                var updatedEvents = events.splice(counter, 1);
+                setEvents(updatedEvents);
+              } else {
+                counter++;
+              }
+            })
+          }
+
+        }
       }
+
     })
 
     const source = snapshot.metadata.fromCache ? "local cache" : "server";
