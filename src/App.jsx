@@ -10,14 +10,16 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { useSelector } from 'react-redux';
-import { BrowserRouter as Router,
+import {
+  BrowserRouter as Router,
   Switch,
   Route,
   Redirect
 } from 'react-router-dom';
 import { selectUser } from './redux/userRedux';
 import EventUpload from './pages/EventUpload';
-import Billboard from  './pages/Billboard';
+import Billboard from './pages/Billboard';
+import ManageEvents from './pages/ManageEvents';
 
 const theme = createTheme({
   palette: {
@@ -35,34 +37,37 @@ const App = () => {
   const user = useSelector(selectUser);
   return (
     <ThemeProvider theme={theme}>
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/events">
-              <Events />
-            </Route>
-            <Route path="/events/:id">
-              <EventHome />
-            </Route>
-            <Route path="/my-tickets">
-              <Cart />
-            </Route>
-            <Route path="/login">
-              {user ? <Redirect to="/" /> : <Login />}
-            </Route>
-            <Route path="/register">
-              {user ? <Redirect to="/" /> : <Register />}
-            </Route>
-            <Route path="/artist/publish-event">
-              <EventUpload />
-            </Route>
-            <Route path="/billboard/:name">
-              <Billboard />
-            </Route>
-          </Switch>
-        </Router>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/events">
+            <Events />
+          </Route>
+          <Route path="/events/:id">
+            <EventHome />
+          </Route>
+          <Route path="/my-tickets">
+            <Cart />
+          </Route>
+          <Route path="/login">
+            {user ? <Redirect to="/" /> : <Login />}
+          </Route>
+          <Route path="/register">
+            {user ? <Redirect to="/" /> : <Register />}
+          </Route>
+          <Route path="/artist/publish-event">
+            <EventUpload />
+          </Route>
+          <Route path="/artist/manage-events">
+            <ManageEvents />
+          </Route>
+          <Route path="/billboard/:name">
+            <Billboard />
+          </Route>
+        </Switch>
+      </Router>
     </ThemeProvider>
   )
 }

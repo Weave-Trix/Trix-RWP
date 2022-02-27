@@ -214,6 +214,8 @@ const Cart = () => {
                     <EventVenue>
                       <b>Venue:</b> {item.ticket.event.location}
                     </EventVenue>
+                    <b style={{ textOverflow: "ellipsis", display: "inline-block", overflow: "hidden", whiteSpace: "nowrap"}}>Payment Receipt: 
+                      <a href={item.ticket.payment.receipt_url} style={{textDecoration: "none"}}> view receipt</a></b>
                   </Details>
                 </EventDetail>
                 <QrContainer>

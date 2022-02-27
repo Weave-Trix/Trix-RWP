@@ -105,16 +105,11 @@ const Navbar = () => {
           <StyledLink to="/artist/publish-event">
             {user && ((user.isArtist) && <Message>Publish Event</Message>)}
           </StyledLink>
-          <StyledLink to="/artist/publish-event">
+          <StyledLink to="/artist/manage-events">
             {user && ((user.isArtist) && <Message style={{marginLeft: "1.4rem"}}>Manage Events ({(artistEventQuantity==0)? 0 : artistEventQuantity})</Message>)}
           </StyledLink>
         </Left>
         <Right>
-          <MenuItem>
-            <Badge badgeContent={4} color="primary">
-              <FavoriteBorder />
-            </Badge>
-          </MenuItem>
           <StyledLink to="/my-tickets">
             <MenuItem style={{ marginRight: "20px" }}>
               <Badge badgeContent={ticketWalletQuantity} color="primary">

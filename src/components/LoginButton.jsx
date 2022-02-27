@@ -33,7 +33,7 @@ const LoginButton = () => {
         <StyledLink to="/login">
             <ButtonContainer>
                 <StyledButton variant="contained" startIcon={<Login />}>
-                    Login to View More
+                    Login to Purchase
                 </StyledButton>
             </ButtonContainer>
         </StyledLink>

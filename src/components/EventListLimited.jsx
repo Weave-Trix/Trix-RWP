@@ -93,7 +93,7 @@ const EventList = () => {
         <ViewMoreContainer>
 
           <ViewMore>
-            View More Events
+            View All Events
           </ViewMore>
           <MoreHoriz />
 

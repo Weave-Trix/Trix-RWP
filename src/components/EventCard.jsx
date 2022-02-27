@@ -71,11 +71,6 @@ export default function EventCard({ item }) {
           <Avatar sx={{ bgcolor: red[500] }} aria-label="user">
           </Avatar>
         }
-        action={
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-        }
         title={
           <Title>
             {item.title}
@@ -95,7 +90,7 @@ export default function EventCard({ item }) {
           </Typography>
         </CardContent>
       </StyledLink>
-      <CardActions disableSpacing>
+      <CardActions disableSpacing style={{justifyContent: "center"}}>
         {user? <PaymentButton item={item} /> : <LoginButton />}
       </CardActions>
     </Card>
