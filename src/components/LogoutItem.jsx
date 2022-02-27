@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { logout } from "../redux/userRedux"
 import { clearTicketWallet } from '../redux/ticketWallet';
+import { clearArtistEvent } from '../redux/artistEvent';
 
 const MenuItem = styled.div`
   font-size: 14px;
@@ -22,6 +23,9 @@ const LogoutItem = () => {
         dispatch(logout());
         console.log("calling clearTicketWallet()..")
         dispatch(clearTicketWallet());
+        console.log("calling clearArtistEvent()..")
+        dispatch(clearArtistEvent());
+        console.log("logout successful")
     }
     return (
         <Container>

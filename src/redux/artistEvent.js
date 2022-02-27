@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const artistEventSlice = createSlice({
     name: "artistEvent",
     initialState:{
-        events: []
+        events: [],
+        quantity: 0,
     },
     reducers:{
         addArtistEvent:(state, action)=>{

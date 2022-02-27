@@ -10,6 +10,7 @@ export const login = async (dispatch, user)=>{
         console.log("current user dispatching to redux store ==>> " + res.data.userId);
         dispatch(loginSuccess(res.data));
         await initTicket(dispatch, res.data.userId);
+        await initArtistEvent(dispatch, res.data.userId);
     }catch(err){
         dispatch(loginFailure());
     }
@@ -38,6 +39,19 @@ export const initTicket = async (dispatch, userId)=>{
         console.log("ticket wallet initialized");
     } catch(err) {
         console.log("failed to reach ticket/find/:userId");
+    }
+}
+
+export const initArtistEvent = async (dispatch, userId)=>{
+    try{
+        console.log("running initTicket() at apiCalls.js...");
+        const res = await publicRequest.get("/events/artist?id=" + userId);
+        console.log("api responded...");
+        res.data.map((event) => dispatch(addArtistEvent({event})));
+        console.log(res.data);
+        console.log("artist event initialized");
+    } catch(err) {
+        console.log("failed to reach events/artist?id=");
     }
 }
 
