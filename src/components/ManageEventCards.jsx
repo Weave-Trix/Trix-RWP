@@ -1,8 +1,5 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import firstEvent from "../images/first_event.png";
-import secondEvent from "../images/second_event.png";
-import thirdEvent from "../images/third_event.png";
 import '../EventUpload.css';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';

@@ -59,7 +59,7 @@ export default function PaymentButton({ bundle }) {
                 console.log("redux api call");
                 console.log("stripe data" + res);
                 addToArtistEvent(res.data);
-                history.push("/my-events", { stripeData: res.data });
+                history.push("artist/manage-events", { stripeData: res.data });
             } catch (err) {
                 console.log(err + "hihi ruka chan");
             }
