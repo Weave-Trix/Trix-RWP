@@ -353,7 +353,7 @@ const EventUpload = () => {
                         name="input-name"
                         allowDecimals={{ Boolean: "true" }}
                         allowNegativeValue={{ Boolean: "false" }}
-                        intlConfig={{ locale: 'en-US', currency: 'MYR' }}
+                        intlConfig={{ locale: 'en-US', currency: 'USD' }}
                         decimalSeparator="."
                         defaultValue={form.price}
                         decimalsLimit={2}

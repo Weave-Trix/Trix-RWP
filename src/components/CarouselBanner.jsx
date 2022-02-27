@@ -77,14 +77,14 @@ const InfoContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 3rem;
+  font-size: 2rem;
   justify-content: flex-start;
   margin-bottom: 0.7rem;
 `;
 
 const Desc = styled.p`
   margin: 50px 0px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
   letter-spacing: 3px;
 `;
@@ -142,7 +142,7 @@ const EventImage = styled.img`
   object-fit: cover;
 `
 
-const Time = styled.h3`
+const Time = styled.h4`
   margin-top: 0.5rem;
 `
 
@@ -220,9 +220,9 @@ const CarouselBanner = () => {
             <InfoContainer>
                 <Top>
                   <Title>{item.title}</Title>
-                  <Time style={{ fontSize: "1.5rem" }}>{getTimestamp(item.startTime).toDateString()}</Time>
+                  <Time style={{ fontSize: "1.3rem" }}>{getTimestamp(item.startTime).toDateString()}</Time>
                   <Time>{getTimestamp(item.startTime).toLocaleTimeString('en-SG')}</Time>
-                  <Time style={{ fontSize: "1.2rem", marginTop: "0.8rem", fontWeight: "bolder" }}>{item.location}</Time>
+                  <Time style={{ fontSize: "1.1rem", marginTop: "0.8rem", fontWeight: "bolder" }}>{item.location}</Time>
                 </Top>
                 <Center>
                   <Desc>{item.description}</Desc>
