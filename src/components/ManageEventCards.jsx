@@ -45,8 +45,8 @@ const ManageEventCards = () => {
   }
 
   return (
-    <div>
-      {(artistEvents.length === 0) && <h2 style={{ marginTop: "30vh", textAlign: "center" }}>No Event Published Yet,  Publish Your Event to Digital Billboard before you can manage them</h2>}
+    <div >
+      {(artistEvents.length === 0) && <h2 style={{ marginTop: "30vh", marginBottom: "17vh", textAlign: "center" }}>No Event Published Yet,  Publish Your Event to Digital Billboard before you can manage them</h2>}
       {artistEvents.map((item) => (
         <>
           <Card style={{ height: "36vh", width: "50vw", borderRadius: "0.5rem" }}>
@@ -82,6 +82,7 @@ const ManageEventCards = () => {
         </>
       ))
       }
+      {(artistEvents.length == 1) && <div style={{ margin: "10rem" }}/>}
     </div>
   )
 }
