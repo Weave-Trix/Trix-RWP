@@ -8,12 +8,14 @@ import { selectUser } from "../redux/userRedux";
 import Login from '../pages/Login';
 import LoginItem from "./LoginItem";
 import LogoutItem from "./LogoutItem";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   height: 4rem;
   align-items: center;
   position: relative;
   bottom: 0.3rem;
+  ${mobile({ bottom: 0 })}
 `;
 
 const Wrapper = styled.div`
@@ -21,6 +23,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${mobile({ padding: "10px 0px" })}
 `;
 
 const Left = styled.div`
@@ -28,7 +31,13 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   align-self: center;
+  ${mobile({ flex: 2, justifyContent: "center" })}
 `;
+
+const ArtistContainer = styled.div`
+    ${mobile({ display: "none" })}
+    display: flex;
+`
 
 const LogoContainer = styled.div`
   display: flex;
@@ -51,6 +60,7 @@ const SearchContainer = styled.div`
   margin-right: 25px;
   padding: 5px;
   border-radius: 5px;
+  ${mobile({ display: "none" })}
 `;
 
 const Input = styled.input`
@@ -67,12 +77,14 @@ const Right = styled.div`
   align-items: center;
   justify-content: flex-end;
   align-self: center;
+  ${mobile({ position: "absolute", right: "5px" })}
 `;
 
 const MenuItem = styled.div`
   font-size: 14px;
   margin-left: 25px;
   cursor: pointer;
+  ${mobile({ fontSize: "12px", marginLeft: "10px", position: "absolute", right: "80vw", top: "1px" })}
 `;
 
 const StyledLink = styled(Link)`
@@ -81,6 +93,7 @@ const StyledLink = styled(Link)`
     &:focus, &:hover, &:visited, &:link, &:active {
         text-decoration: none;
     }
+    ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
 const Navbar = () => {
@@ -102,12 +115,14 @@ const Navbar = () => {
             <Input placeholder="Search" />
             <Search style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
-          <StyledLink to="/artist/publish-event">
-            {user && ((user.isArtist) && <Message>Publish Event</Message>)}
-          </StyledLink>
-          <StyledLink to="/artist/manage-events">
-            {user && ((user.isArtist) && <Message style={{marginLeft: "1.4rem"}}>Manage Events ({(artistEventQuantity==0)? 0 : artistEventQuantity})</Message>)}
-          </StyledLink>
+          <ArtistContainer>
+            <StyledLink to="/artist/publish-event">
+              {user && ((user.isArtist) && <Message>Publish Event</Message>)}
+            </StyledLink>
+            <StyledLink to="/artist/manage-events">
+              {user && ((user.isArtist) && <Message style={{ marginLeft: "1.4rem" }}>Manage Events ({(artistEventQuantity == 0) ? 0 : artistEventQuantity})</Message>)}
+            </StyledLink>
+          </ArtistContainer>
         </Left>
         <Right>
           <StyledLink to="/my-tickets">

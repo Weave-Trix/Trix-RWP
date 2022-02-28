@@ -6,6 +6,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateSelector from "../components/DateSelector";
 import EventListAll from '../components/EventListAll';
+import { mobile } from "../responsive";
 
 
 const Container = styled.div``;
@@ -21,7 +22,7 @@ const Title = styled.div`
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  
+  ${mobile({ display: "none" })}
 `;
 
 const DateContainer = styled.div`

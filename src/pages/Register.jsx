@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { publicRequest } from '../requestMethods';
 import { login } from "../redux/apiCalls";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -13,6 +14,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${mobile({ display: "contents"})}
 `
 
 const Wrapper = styled.div`
@@ -20,6 +22,7 @@ const Wrapper = styled.div`
   padding: 20px;
   background-color: white;
   align-items: center;
+    ${mobile({ display: "contents"})}
 `
 
 const LogoContainer = styled.div`
@@ -32,6 +35,7 @@ const LogoContainer = styled.div`
 const Logo = styled.h1`
     font-size: 6.2rem;
     font-weight: bold;
+    ${mobile({ fontSize: "5rem"})}
 `
 
 const Title = styled.h1`
@@ -73,6 +77,7 @@ const Agreement = styled.span`
   margin: 20px 0px;
   text-align: center;
   margin-top: 2rem;
+  ${mobile({ width: "80vw"})}
 `;
 
 const Register = () => {

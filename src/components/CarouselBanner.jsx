@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from "../redux/userRedux";
 import QRCode from "react-qr-code";
 import { BASE_URL } from "../http-common";
+import { mobile } from "../responsive";
 
 // testing githubbb
 const Container = styled.div`
@@ -20,6 +21,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
+  ${mobile({ display: "none" })}
 `;
 
 const Arrow = styled.div`

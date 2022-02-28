@@ -6,8 +6,10 @@ import { style } from '@mui/system';
 import { useSelector } from 'react-redux';
 import { Timestamp } from '@firebase/firestore';
 import ticketWallet, { selectTicketWallet } from "../redux/ticketWallet";
+import { mobile } from "../responsive";
 
-const Container = styled.div``;
+const Container = styled.div`
+`;
 
 const ImgContainer = styled.div`
     height: 8rem;
@@ -18,6 +20,7 @@ const ImgContainer = styled.div`
     justify-content: flex-start;
     overflow: hidden;
     align-self: center;
+    ${mobile( {display: "none"})}
 `
 
 const QrContainer = styled.div`
@@ -33,6 +36,7 @@ const QrContainer = styled.div`
 
 const Wrapper = styled.div`
   padding: 20px;
+  ${mobile({ padding: "4px", width: "100%", display: "content", flexDirection: "column" })}
 `;
 
 const Title = styled.h1`
@@ -45,6 +49,7 @@ const Top = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
+  ${mobile({ display: "content" })}
 `;
 
 const TopTexts = styled.div`
@@ -65,11 +70,13 @@ const Bottom = styled.div`
 
 const Info = styled.div`
   flex: 3;
+  ${mobile({ flexDirection: "column" , flex: "0", display: "content"})}
 `;
 
 const Event = styled.div`
   display: flex;
   justify-content: center;
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const EventDetail = styled.div`
@@ -77,10 +84,12 @@ const EventDetail = styled.div`
   display: flex;
   width: 20rem;
   height: 10rem;
+  ${mobile({ width: "90vw", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: ""})}
 `;
 
 const Image = styled.img`
   width: 100%;
+  ${mobile({  })}
 `;
 
 const Details = styled.div`
@@ -89,11 +98,16 @@ const Details = styled.div`
   flex-direction: column;
   justify-content: space-around;
   min-width: 25rem;
+  ${mobile({ minWidth: "0px", justifyContent: "center", alignText: "center" })}
 `;
 
-const EventName = styled.span``;
+const EventName = styled.span`
+    ${mobile({ alignText: "center"})}
+`;
 
-const EventDate = styled.span``;
+const EventDate = styled.span`
+  ${mobile({ alignText: "center" })}
+`;
 
 const Spacing = styled.div`
   height: 1.9rem;
@@ -168,6 +182,7 @@ const Button = styled.button`
 const Box = styled.div`
   padding-left: 20%;
   padding-right: 20%;
+  ${mobile({ display: "content" , padding: "0px"})}
 `
 
 const Cart = () => {
@@ -194,37 +209,37 @@ const Cart = () => {
           </TopTexts>
         </Top>
         <Bottom>
-        <Box>
-          {ticketList.map((item) => (
-            <Info>
-              <Event>
-                <EventDetail>
-                  <ImgContainer>
-                    <Image src={item.ticket.event.coverPhoto} />
-                  </ImgContainer>
-                  <Details>
-                    <EventName>
-                      <b>Event:</b> {item.ticket.event.title}
-                    </EventName>
-                    <EventDate>
-                      <b>Date:</b> {getTimestamp(item.ticket.event.startTime).toDateString()}
-                      <b style={{ paddingLeft: "1rem" }}>Time:</b> {getTimestamp(item.ticket.event.startTime).toLocaleTimeString('en-SG')}
-                    </EventDate>
-                    <Spacing />
-                    <EventVenue>
-                      <b>Venue:</b> {item.ticket.event.location}
-                    </EventVenue>
-                    <b style={{ textOverflow: "ellipsis", display: "inline-block", overflow: "hidden", whiteSpace: "nowrap"}}>Payment Receipt: 
-                      <a href={item.ticket.payment.receipt_url} style={{textDecoration: "none"}}> view receipt</a></b>
-                  </Details>
-                </EventDetail>
-                <QrContainer>
-                  <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" />
-                </QrContainer>
-              </Event>
-              <Hr />
-            </Info>
-          ))}
+          <Box>
+            {ticketList.map((item) => (
+              <Info>
+                <Event>
+                  <EventDetail>
+                    <ImgContainer>
+                      <Image src={item.ticket.event.coverPhoto} />
+                    </ImgContainer>
+                    <Details>
+                      <EventName>
+                        <b>Event:</b> {item.ticket.event.title}
+                      </EventName>
+                      <EventDate>
+                        <b>Date:</b> {getTimestamp(item.ticket.event.startTime).toDateString()}
+                        <b style={{ paddingLeft: "1rem" }}>Time:</b> {getTimestamp(item.ticket.event.startTime).toLocaleTimeString('en-SG')}
+                      </EventDate>
+                      <Spacing />
+                      <EventVenue>
+                        <b>Venue:</b> {item.ticket.event.location}
+                      </EventVenue>
+                      <b style={{ textOverflow: "ellipsis", display: "inline-block", overflow: "hidden", whiteSpace: "nowrap" }}>Payment Receipt:
+                        <a href={item.ticket.payment.receipt_url} style={{ textDecoration: "none" }}> view receipt</a></b>
+                    </Details>
+                  </EventDetail>
+                  <QrContainer>
+                    <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" />
+                  </QrContainer>
+                </Event>
+                <Hr />
+              </Info>
+            ))}
           </Box>
         </Bottom>
       </Wrapper>

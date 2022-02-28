@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   flex: 1;
@@ -8,6 +9,7 @@ const Container = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  ${mobile({ height: "15rem", width: "15rem" })}
 `;
 
 const CardContainer = styled.div`
@@ -16,6 +18,7 @@ const CardContainer = styled.div`
     padding: 10px;
     display: flex;
     justify-content: center;
+    ${mobile({ height: "15rem", width: "15rem" })}
 `
 
 const Image = styled.img`

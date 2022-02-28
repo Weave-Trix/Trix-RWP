@@ -6,6 +6,7 @@ import { login } from '../redux/apiCalls';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -14,6 +15,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${mobile({ display: "contents"})}
 `
 
 const Wrapper = styled.div`
@@ -21,6 +23,7 @@ const Wrapper = styled.div`
   padding: 20px;
   background-color: white;
   align-items: center;
+  ${mobile({ display: "contents"})}
 `
 
 const LogoContainer = styled.div`
@@ -33,6 +36,7 @@ const LogoContainer = styled.div`
 const Logo = styled.h1`
     font-size: 6.2rem;
     font-weight: bold;
+    ${mobile({ fontSize: "5rem"})}
 `
 
 const Title = styled.h1`
@@ -78,7 +82,7 @@ const StyledLink = styled(Link)`
   font-size: 1.2rem;
   text-decoration: underline;
   cursor: pointer;
-  
+  ${mobile({ fontSize: "1rem" , textAlign: "center"})}
 `;
 
 const Error = styled.span`

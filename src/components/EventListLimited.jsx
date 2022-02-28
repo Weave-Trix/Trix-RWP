@@ -7,6 +7,7 @@ import { MoreHoriz } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
 import { publicRequest } from '../requestMethods';
 import { Link } from 'react-router-dom';
+import { mobile } from '../responsive';
 
 
 const Container = styled.div`
@@ -20,6 +21,7 @@ const TitleContainer = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
+  ${mobile({marginTop: "4rem"})}
 `
 
 const ViewMoreContainer = styled.div`
