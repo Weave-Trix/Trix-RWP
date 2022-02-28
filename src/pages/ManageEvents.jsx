@@ -14,9 +14,8 @@ function ManageEvents() {
             <div class="alignment">
                 <ManageEventCard />
             </div>
-            <div style={{marginTop: "80vh"}}>
-                <Footer />
-            </div>
+            <div style={{marginTop: "5rem"}}/>
+            <Footer />
         </div>
     );
 }

@@ -27,7 +27,7 @@ import StripeCheckout from 'react-stripe-checkout'
 import { publicRequest, userRequest } from '../requestMethods';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Redirect, Router, useHistory } from 'react-router-dom';
 import { addEvent } from '../redux/apiCalls';
 
 const PaymentContainer = styled.div`
@@ -204,6 +204,7 @@ const EventUpload = () => {
     // Stripe
     const KEY = "pk_test_51KVK8VLgmHChReqD4pRxgriLf0qbb6KfJWZ5zuut1w9i9TocIitIhaACRfyYSiNx21OfsxOBh46aFjI5NzOcOZsc00EETUx8bS"
     const [stripeToken, setStripeToken] = useState(null);
+    const [redirect, setRedirect] = useState(false);
     const history = useHistory();
     const onToken = (token) => {
         setStripeToken(token);
@@ -234,7 +235,8 @@ const EventUpload = () => {
                 console.log("redux api call");
                 console.log("stripe data" + res);
                 addToArtistEvent(res.data);
-                history.push("/", { stripeData: res.data });
+                console.log("redirecting")
+                history.push("/artist/manage-events");
             } catch (err) {
                 console.log(err + "hihi ruka chan");
             }
