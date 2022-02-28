@@ -71,7 +71,7 @@ export default function PaymentButton({ item }) {
                 stripeKey={KEY}
             >
                 <StyledButton variant="contained" startIcon={<ConfirmationNumber />} >
-                    $ {item.price}
+                    $ {Number(item.price).toFixed(2)}
                 </StyledButton>
 
             </StripeCheckout>

@@ -184,6 +184,23 @@ const BillboardCarouselBanner = () => {
   onSnapshot(q, { includeMetaDataChanges: true }, (snapshot) => {
     // MONITOR UPDATES
     snapshot.docChanges().forEach((change) => {
+      // LIVE DELETE
+      if (change.type === "removed") {
+        console.log("deleted: " + change.doc.data().payment.id)
+        if (events.length > 0) {
+          let count = -1;
+          events.forEach((item) => {
+            // if not suspect increase count
+            if (change.doc.data().payment.id === item.payment.id) {
+              // remove this event at this index
+              var updatedEvents = events.splice(count, 1);
+              setEvents(updatedEvents);
+            }
+            count = count + 1;
+          })
+        }
+      }
+
       if (change.type === "added") {
         console.log("New event: ", change.doc.data());
         let exist = false;
@@ -202,28 +219,9 @@ const BillboardCarouselBanner = () => {
           })
         }
 
-
-        // LIVE DELETE
         // if document not exist in local but in firestore
         (exist === false) && setEvents([...events, change.doc.data()]);
-        // suspect still cant prove its existance
-        if (suspectRemovedEventPaymentId !== "") {
-          // loop again and dig that suspect out
-          if (events.length > 0) {
-            let counter = 0;
-            events.forEach((item) => {
-              // if not suspect increase count
-              if (change.doc.data().payment.id === item.payment.suspectRemovedEventPaymentId) {
-                // remove this event at this index
-                var updatedEvents = events.splice(counter, 1);
-                setEvents(updatedEvents);
-              } else {
-                counter++;
-              }
-            })
-          }
 
-        }
       }
 
     })
