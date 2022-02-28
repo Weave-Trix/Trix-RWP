@@ -11,6 +11,7 @@ import PaymentButton from './PaymentButton';
 import LoginButton from './LoginButton';
 import { useSelector } from 'react-redux';
 import { selectUser } from "../redux/userRedux";
+import { mobile } from '../responsive';
 
 const Container = styled.div`
     height: 18rem;
@@ -27,6 +28,7 @@ const ImgContainer = styled.div`
     display: flex;
     justify-content: center;
     overflow: hidden;
+    ${mobile({ width: "16rem", height: "9rem", top: "15rem" })}
 `
 
 const SecondContainer = styled.div`
@@ -59,6 +61,7 @@ const DescriptionContainer = styled.div`
     display: flex;
     justify-content: center;
     margin-bottom: 18px;
+    ${mobile({ width: "80vw" })}
 `
 
 const ButtonContainer = styled.div`
