@@ -20,7 +20,7 @@ import { Button } from '@mui/material'
 import { ConfirmationNumber } from '@mui/icons-material';
 import { style } from '@mui/system';
 import { useState, useEffect } from 'react';
-import { addEventTicketWallet } from '../redux/ticketWallet';
+import { addEventTicketWallet, selectTicketWallet } from '../redux/ticketWallet';
 import { useDispatch, useSelector } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios';
@@ -55,9 +55,22 @@ const Title = styledCom.text`
 `
 
 export default function EventCard({ item }) {
-  // get current user status
+  // get current user, ticket wallet
   const user = useSelector(selectUser);
-  console.log(item.id);
+  const ticketWalletQuantity = useSelector(state => state.ticketWallet.quantity);
+  const ticketWallet = useSelector(selectTicketWallet);
+
+  const [purchased, setPurchased] = useState(false)
+
+  let checkPurchased = () => {
+    ticketWallet.forEach((x) => {
+      (x.ticket.event.id === item.id) && setPurchased(true)
+    })
+  }
+
+  useEffect(() => {
+    (ticketWalletQuantity!==0) && checkPurchased();
+  }, []);
 
   // format firebase timestamp
   let firebaseStartTime = item.startTime.seconds;
@@ -90,8 +103,8 @@ export default function EventCard({ item }) {
           </Typography>
         </CardContent>
       </StyledLink>
-      <CardActions disableSpacing style={{justifyContent: "center"}}>
-        {user? <PaymentButton item={item} /> : <LoginButton />}
+      <CardActions disableSpacing style={{ justifyContent: "center" }}>
+        {user ? (purchased ? (<h5>Purchased</h5>) : (<PaymentButton item={item} />)) : <LoginButton />}
       </CardActions>
     </Card>
   );
