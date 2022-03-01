@@ -227,7 +227,7 @@ const EventUpload = () => {
             console.log("useEffect here");
             try {
                 const res = await publicRequest.post(
-                    "http://localhost:3001/api/checkout",
+                    "/checkout",
                     {
                         tokenId: stripeToken.id,
                         amount: (totalPrice) * 100,

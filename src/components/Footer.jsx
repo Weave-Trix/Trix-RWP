@@ -9,6 +9,7 @@ import {
 } from "@mui/icons-material";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     display: flex;
@@ -64,8 +65,7 @@ const Title = styled.h3`
 const List = styled.ul`
     margin: 0;
     padding: 0;
-    list-style: none;
-    display: flex;
+    list-style: disc;
     flex-wrap: wrap;
   `;
 
@@ -89,6 +89,15 @@ const ContactItem = styled.div`
 const Payment = styled.img`
       width: 50%;
   `;
+
+const StyledLink = styled(Link)`
+text-decoration: none;
+color: black;
+&:focus, &:hover, &:visited, &:link, &:active {
+    text-decoration: none;
+}
+${mobile({ fontSize: "12px", marginLeft: "10px" })}
+`;
 
 const Footer = () => {
     return (
@@ -117,16 +126,13 @@ const Footer = () => {
                 </SocialContainer>
             </Left>
             <Center>
-                <Title>Useful Links</Title>
+                <Title>Billboards</Title>
                 <List>
-                    <ListItem>Home</ListItem>
-                    <ListItem>WishList</ListItem>
-                    <ListItem>List of Artists</ListItem>
-                    <ListItem>Events</ListItem>
-                    <ListItem>For Artists</ListItem>
-                    <ListItem>My Account</ListItem>
-                    <ListItem>Tickets</ListItem>
-                    <ListItem>Terms</ListItem>
+                    <StyledLink to="/billboard/penang-airport"><ListItem>Penang Airport</ListItem></StyledLink>
+                    <StyledLink to="/billboard/komtar"><ListItem>Komtar</ListItem></StyledLink>
+                    <StyledLink to="/billboard/inti-college-penang"><ListItem>Inti College Penang</ListItem></StyledLink>
+                    <StyledLink to="billboard/padang-kota-lama"><ListItem>Padang Kota Lama</ListItem></StyledLink>
+                    <StyledLink to="billboard/queensbay-mall"><ListItem>Queensbay Mall</ListItem></StyledLink>
                 </List>
             </Center>
             <Right>
