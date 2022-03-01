@@ -43,7 +43,7 @@ export default function PaymentButton({ item }) {
             console.log("useEffect here");
             try {
                 const res = await publicRequest.post(
-                    "http://localhost:3001/api/checkout",
+                    "/checkout",
                     {
                         tokenId: stripeToken.id,
                         amount: item.price * 100,
