@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { Timestamp } from '@firebase/firestore';
 import ticketWallet, { selectTicketWallet } from "../redux/ticketWallet";
 import { mobile } from "../responsive";
-import QRCode from "react-qr-code";
 
 const Container = styled.div`
 `;
@@ -21,10 +20,10 @@ const ImgContainer = styled.div`
     justify-content: flex-start;
     overflow: hidden;
     align-self: center;
-    ${mobile({ display: "none" })}
+    ${mobile( {display: "none"})}
 `
 
-const QRContainer = styled.div`
+const QrContainer = styled.div`
     height: 8rem;
     width: 8rem;
     z-index: 2;
@@ -71,7 +70,7 @@ const Bottom = styled.div`
 
 const Info = styled.div`
   flex: 3;
-  ${mobile({ flexDirection: "column", flex: "0", display: "content" })}
+  ${mobile({ flexDirection: "column" , flex: "0", display: "content"})}
 `;
 
 const Event = styled.div`
@@ -85,12 +84,12 @@ const EventDetail = styled.div`
   display: flex;
   width: 20rem;
   height: 10rem;
-  ${mobile({ width: "90vw", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "" })}
+  ${mobile({ width: "90vw", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: ""})}
 `;
 
 const Image = styled.img`
   width: 100%;
-  ${mobile({})}
+  ${mobile({  })}
 `;
 
 const Details = styled.div`
@@ -103,7 +102,7 @@ const Details = styled.div`
 `;
 
 const EventName = styled.span`
-    ${mobile({ alignText: "center" })}
+    ${mobile({ alignText: "center"})}
 `;
 
 const EventDate = styled.span`
@@ -183,7 +182,7 @@ const Button = styled.button`
 const Box = styled.div`
   padding-left: 20%;
   padding-right: 20%;
-  ${mobile({ display: "content", padding: "0px" })}
+  ${mobile({ display: "content" , padding: "0px"})}
 `
 
 const Cart = () => {
@@ -234,9 +233,9 @@ const Cart = () => {
                         <a href={item.ticket.payment.receipt_url} style={{ textDecoration: "none" }}> view receipt</a></b>
                     </Details>
                   </EventDetail>
-                  <QRContainer>
-                    <QRCode value={item.ticket.ticketId} size={100} />
-                  </QRContainer>
+                  <QrContainer>
+                    <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" />
+                  </QrContainer>
                 </Event>
                 <Hr />
               </Info>
