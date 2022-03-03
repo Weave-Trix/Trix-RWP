@@ -35,7 +35,8 @@ export default function PaymentButton({ item }) {
     const addToTicketList = async (paymentDetails) => {
         console.log("checking userId before dispatch : " + currentUser.userId)
         console.log("running addToTicketList() at PaymentButton.jsx");
-        await addTicket(dispatch, { payment: paymentDetails, userId: currentUser.userId, event: item })
+        const {billboard, soldTicketList, ticketQuantity, ...eventFiltered} = item;
+        await addTicket(dispatch, { payment: paymentDetails, userId: currentUser.userId, event: eventFiltered }) // filter unnecessary field
     }
 
     useEffect(() => {
