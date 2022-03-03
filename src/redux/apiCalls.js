@@ -22,7 +22,7 @@ export const addTicket = async (dispatch, ticket) => {
         const res = await publicRequest.post("/tickets/forge/" + ticket.event.id, ticket);
         console.log("Forged ticket returned to apiCalls.js ")
         console.log("Res from forge ticket " + res);
-        dispatch(addEventTicketWallet({ ticket }));
+        dispatch(addEventTicketWallet({ticket: res.data[0]}));
         console.log("Ticket added to redux");
     } catch (err) {
         console.log("failed to reach ticket/forge api");
